@@ -1,0 +1,5 @@
+hello this is a read file just txt about contact/ non contact sport
+
+rugby, contact sport
+shooting, no contact
+swimming, no contact
