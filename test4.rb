@@ -1,17 +1,7 @@
-values = {
-  "two" => 2,
-  "three"=> 3,
-  "four" => 4,
-  "five"=> 5,
-  "six"=> 6,
-  "seven"=> 7,
-  "eight" => 8,
-  "nine" => 9,
-  "ten" => 10,
-  "jack" => 10,
-  "queen" => 10,
-  "king" => 10,
-  "ace" => 11
-}
+def accum(s)
+  s.chars.map.with_index{ |char, index| (char*(index+1)).capitalize}.join("-")
+end
 
-puts  values.class
+
+
+p accum("ZpglnRxqenU") #"Z-Pp-Ggg-Llll-Nnnnn-Rrrrrr-Xxxxxxx-Qqqqqqqq-Eeeeeeeee-Nnnnnnnnnn-Uuuuuuuuuuu")
