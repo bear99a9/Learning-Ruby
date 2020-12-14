@@ -16,7 +16,7 @@ class Gadget
 
 end
 
-g1 = Gadget.new("rubyfan102", "12345")
+g1 = Gadget.new([1,2,3], "12345")
 g2 = Gadget.new("mrprogrammer", "bestpasswordever")
 g3 = Gadget.new("sportsfan100", "topsecret")
 
@@ -24,4 +24,3 @@ p g1.username
 p g1.production_number
 g1.username = "anotherusername"
 p g1.username
-p g1.password
