@@ -1,26 +1,69 @@
+require_relative 'app_store'
+
 class Gadget
 
+  attr_reader :production_number, :apps
   attr_accessor :username
-  attr_reader :production_number #:username
-  attr_writer :password #:username can have as many as you want just seperate by comma
+  #attr_writer :password #:username can have as many as you want just seperate by comma
 
   def initialize(username, password)
     @username = username
     @password = password
-    @production_number = "#{("A".."Z").to_a.sample}-#{rand(1..999)}"
+    @production_number = generate_production_number
+    @apps = []
   end
 
-  def to_s
-    "Gadget #{@production_number} has the username #{@username}. It is made \nfrom the #{self.class} class and it has the ID #{self.object_id}."
+  def to_s     # changing the instance variable to a instance methods
+    "Gadget #{production_number} has the username #{username}.
+    It is made from the #{self.class} class and it has the ID #{object_id}."
   end
 
+  def install_app(name)
+    app = AppStore.find_app(name)
+    @apps << app unless @apps.include?(app)
+  end
+
+  def delete_app(name)
+    app = apps.find { |apps| apps.name == name}
+    apps.delete(app) unless app.nil?
+  end
+
+  def password=(new_password)
+    @password = new_password if validate_password(new_password)
+  end
+
+  def reset(username, password)
+    self.username = username  # using self to refer to writer instance methods is better than using instance variables
+    self.password = password
+    self.apps = []
+  end
+
+  private #makes everything below it private
+
+  attr_writer :apps # putting the attr_writer below the private means only other
+  # instance methods can call this writer method
+
+  def generate_production_number
+    start_digits = rand(10000.99999)
+    end_digits = rand(10000.99999)
+    alphabet = ("A".."Z").to_a
+    middle_digits = "2020"
+    5.times { middle_digits << alphabet.sample }
+    "#{start_digits}-#{middle_digits}-#{end_digits}"
+  end
+
+  def validate_password(new_password)
+    new_password.is_a?(String) && new_password.length >= 6 ##&& new_password =~ /\d/ && new_password =~ /[A-Z]/
+  end
 end
 
-g1 = Gadget.new([1,2,3], "12345")
-g2 = Gadget.new("mrprogrammer", "bestpasswordever")
-g3 = Gadget.new("sportsfan100", "topsecret")
+g = Gadget.new("sean", "password")
+p g.apps
+g.install_app(:Chat)
+g.install_app(:Twitter)
+g.install_app(:Chat)
+p g.apps
 
-p g1.username
-p g1.production_number
-g1.username = "anotherusername"
-p g1.username
+g.delete_app(:Chat)
+p g.apps
+puts @username
