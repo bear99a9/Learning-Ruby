@@ -1,6 +1,6 @@
 class OrangeTree
 
-  attr_reader :age, :tree_height, :orange_count
+  attr_accessor :age, :tree_height, :orange_count
   def initialize
     @orange_count = 0
     @tree_height = 10
@@ -58,3 +58,5 @@ class OrangeTree
 
 end
 seville = OrangeTree.new
+@orange_count = 20
+seville.count_the_oranges
